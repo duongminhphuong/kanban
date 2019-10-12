@@ -13,10 +13,11 @@ import AddNewCardButton from './AddNewCardButton';
 const ListContainer = styled.div`
   background-color: #788ae2;  
   border-radius: 3px;
+  position: transparent;
   width: 300px;
   padding: 8px;
   height: 500px;
-  margin: 0 8px 0 0;
+  margin: 60px 8px 0 0;
 `;
 
 const ListTitle = styled.h4`
@@ -51,10 +52,6 @@ class TrelloList extends React.Component {
       <ListContainer>
       <ListTitle>title</ListTitle>
       <ListDetail>
-            {/* <Card desc="Hello World"></Card>
-            <Card desc="Hello World 2"></Card>
-            <Card desc="Hello World 3"></Card>
-            <Card desc="Hello World 4"></Card> */}
             {this.state.cards.map((item,index)=>(<Card desc={item.desc} />))}
       </ListDetail>
         <AddNewCardButton onClick={this.addNewCard.bind(this)}></AddNewCardButton>
