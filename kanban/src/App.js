@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import TrelloList from './components/List'
+import TrelloList from './components/TrelloList'
 function App() {
   return (
     // <div className="App">
