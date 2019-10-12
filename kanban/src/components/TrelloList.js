@@ -3,8 +3,9 @@ import React, { useState } from "react";
 // import TrelloCreate from "./TrelloCreate";
 // import { Droppable, Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import Card from './Card'
-import AddNewCardButton from './AddNewCardButton'
+import Card from './Card';
+import CardForm from './CardForm';
+import AddNewCardButton from './AddNewCardButton';
 // import { connect } from "react-redux";
 // import { editTitle, deleteList } from "../actions";
 // import Icon from "@material-ui/core/Icon";
@@ -37,12 +38,12 @@ class TrelloList extends React.Component {
       title: props.name,
       // cards: props.cards,
       cards: props.items || [],
+      editMode: false,
     }
   }
-
   addNewCard(desc) {
     this.setState({
-      cards:[...this.state.cards,{desc:"cri"}]
+      editMode: true,
     })
   }
   render() {
@@ -55,8 +56,9 @@ class TrelloList extends React.Component {
             <Card desc="Hello World 3"></Card>
             <Card desc="Hello World 4"></Card> */}
             {this.state.cards.map((item,index)=>(<Card desc={item.desc} />))}
-        </ListDetail>
+      </ListDetail>
         <AddNewCardButton onClick={this.addNewCard.bind(this)}></AddNewCardButton>
+        <CardForm editMode={this.state.editMode} onClose={()=>this.setState({editMode:false})}></CardForm>
     </ListContainer>
     );
   }
