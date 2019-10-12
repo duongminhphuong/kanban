@@ -23,6 +23,6 @@
 
 .add_button {
   position: absolute;
-  right: 10px;
-  align-items: top;
+  left: 10px;
+  top: 10px;
 }
