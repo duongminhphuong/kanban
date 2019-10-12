@@ -71,18 +71,20 @@ class CardForm extends React.Component {
       comment: "",
     }
   }
-  closeForm() {
-
+  onDescChange(event) {
+    this.setState({
+      desc: event.target.value
+    });
   }
   render() {
     return this.props.editMode ?
       (<Blackout>
       <FormWrapper>
         <div>Description</div>
-        <div><textarea id="description" rows="2" placeholder="What do you want to do?"></textarea></div>
+        <div><textarea id="description" rows="2" placeholder="What do you want to do?" onChange={this.onDescChange.bind(this)}></textarea></div>
         <div>Comments</div>
         <div><textarea type="text" id="comment" rows="5" placeholder="Write some comment here!"></textarea></div>
-        <button >Submit</button>
+        <button onClick={() => this.props.onSubmit(this.state.desc)}>Submit</button>
         <button onClick={this.props.onClose}>Close</button>
         {/* <CommentList comments={this.state.comments}></CommentList> */}
       </FormWrapper>

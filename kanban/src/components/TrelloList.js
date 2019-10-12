@@ -47,15 +47,26 @@ class TrelloList extends React.Component {
       editMode: true,
     })
   }
+  onSubmit(desc) {
+    this.setState({
+      editMode: false,
+      cards: [...this.state.cards, {desc: desc}]
+    });
+  }
+  onCardClicked() {
+    this.setState({
+      editMode: true,
+    });
+  }
   render() {
     return (
       <ListContainer>
       <ListTitle>title</ListTitle>
       <ListDetail>
-            {this.state.cards.map((item,index)=>(<Card desc={item.desc} />))}
+            {this.state.cards.map((item,index)=>(<Card onClick={this.onCardClicked.bind(this)} desc={item.desc} />))}
       </ListDetail>
         <AddNewCardButton onClick={this.addNewCard.bind(this)}></AddNewCardButton>
-        <CardForm editMode={this.state.editMode} onClose={()=>this.setState({editMode:false})}></CardForm>
+        <CardForm editMode={this.state.editMode} onSubmit={this.onSubmit.bind(this)} onClose={()=>this.setState({editMode:false})}></CardForm>
     </ListContainer>
     );
   }
