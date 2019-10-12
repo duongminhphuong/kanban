@@ -17,6 +17,10 @@ const StyledCard = styled.div`
     margin-bottom: 20px;
     line-height: 40px;
     padding-left: 10px;
+
+    :hover {
+        cursor: pointer;
+    }
 `;
 
 const Card = ({ desc, done, date }) => {
