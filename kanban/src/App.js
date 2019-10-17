@@ -1,8 +1,10 @@
 import React from 'react';
+import Board from './components/Board';
 import logo from './logo.svg';
 import './App.css';
-import TrelloList from './components/TrelloList'
-import { Button } from 'react-bootstrap';
+// import TrelloList from './components/TrelloList'
+import 'semantic-ui-css/semantic.min.css';
+// import { Button } from 'react-bootstrap';
 //172.28.165.156:5000
 
 class App extends React.Component {
@@ -26,28 +28,8 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div className="App">
-        <div>
-          <div>
-            <Button variant="success" className="add_button" onClick={this.add_new_column.bind(this, { name: "OK", items: [] })}>Add new column</Button>
-          </div>
-          <div>
-          <table>
-            <tr>
-                {this.state.list.map((item, index) => (<td>{<TrelloList title="DER TITLE!" ></TrelloList>}</td>))}
-            </tr>
-            <tr>
-                {this.state.list.map((item, index) => (<td>
-                  <Button variant="warning" value={index} onClick={e => this.delete_column(e, "value")}>
-                    X
-                  </Button>
-                </td>))}
-            </tr>
-          </table>
-          </div>
-        </div>
-        
-
+      <div className="App">        
+        <Board />
       </div>
     );
   }
