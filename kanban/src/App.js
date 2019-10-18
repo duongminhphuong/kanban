@@ -1,10 +1,10 @@
 import React from 'react';
 import Board from './components/Board';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+
 // import TrelloList from './components/TrelloList'
 import 'semantic-ui-css/semantic.min.css';
-// import { Button } from 'react-bootstrap';
 //172.28.165.156:5000
 
 class App extends React.Component {
@@ -28,7 +28,7 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div className="App">        
+      <div className="App">
         <Board />
       </div>
     );
