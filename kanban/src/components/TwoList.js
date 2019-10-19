@@ -6,6 +6,7 @@ import _ from 'lodash'
 import TaskCard from './TaskCard';
 import { get } from 'https';
 import CardForm from './CardForm';
+import { KeyObject } from 'crypto';
 // fake data generator
 let id=0
 const getItems = (count) =>{
@@ -80,6 +81,7 @@ export default class TwoList extends Component {
         value: '',
         list: {
         },
+        columnSelected: -1,
         entryModal: {
             open: false,
             key: -1,
@@ -223,20 +225,23 @@ export default class TwoList extends Component {
     onYesButton(key){
         // console.log(this.state.list)
         // console.log(key)
-        // const copyList = {...this.state.list}
-        // delete copyList[key]
-        // console.log(copyList)
+        const copyList = {...this.state.list}
+        delete copyList[this.state.columnSelected]
+        console.log(copyList)
         this.setState({
-            deleteMode: false
+            deleteMode: false,
+            list:copyList
         })
     }
-    showModal(key){
-        if (key === 'i'){
+    showModal(mode, key){
+        if (mode === 'i'){
             this.setState({
+                columnSelected: key,
                 insertMode: true
             });
-        }else if (key === 'd'){
+        }else if (mode === 'd'){
             this.setState({
+                columnSelected: key,
                 deleteMode: true
             })
         }else console.log('Key error')
@@ -247,7 +252,7 @@ export default class TwoList extends Component {
         this.setState({
             list: {
                 ...this.state.list,
-                [key]: this.state.list[key].concat({
+                [this.state.columnSelected]: this.state.list[this.state.columnSelected].concat({
                     id: this.state.header,
                     content: this.state.content
                 })
@@ -257,7 +262,7 @@ export default class TwoList extends Component {
             content: ''
         })
     }
-    renderColumn(items, key, header) {
+    renderColumn(items, key) {
         return (
             <Grid.Column key={key} width={4} textAlign="left" verticalAlign="top" style={{ padding: '10px' }}>
                 <Header attached="top" color="blue" block textAlign='center'>
@@ -296,10 +301,10 @@ export default class TwoList extends Component {
 
                 </Segment>
                 <Button.Group attached>
-                    <Button basic style={{ maxWidth: '30%', marginTop: '10px', marginLeft: '10%' }} color='blue' onClick={this.showModal.bind(this, 'i')}>
+                    <Button basic style={{ maxWidth: '30%', marginTop: '10px', marginLeft: '10%' }} color='blue' onClick={this.showModal.bind(this, 'i', key)}>
                         <Icon name='plus' color='blue' />
                     </Button>
-                    <Button basic style={{ maxWidth: '30%', marginTop: '10px', marginLeft: '20%' }} color='red' onClick={this.showModal.bind(this, 'd')}>
+                    <Button basic style={{ maxWidth: '30%', marginTop: '10px', marginLeft: '20%' }} color='red' onClick={this.showModal.bind(this, 'd', key)}>
                         <Icon name='delete' color='red' />
                     </Button>
                 </Button.Group>
@@ -317,7 +322,7 @@ export default class TwoList extends Component {
                     <Button basic color='red' inverted onClick={this.onCancelButton.bind(this, 'i')}>
                         <Icon name='remove' /> Cancel
                     </Button>
-                    <Button color='green' inverted onClick={this.addToCol.bind(this, key)}>
+                    <Button color='green' inverted onClick={this.addToCol.bind(this, key)}> 
                         <Icon name='checkmark' /> Submit
                     </Button>
                     </Modal.Actions>
@@ -333,7 +338,7 @@ export default class TwoList extends Component {
                             No
                         </Button>
                         <Button
-                            onClick={this.onYesButton.bind(this, key)}
+                            onClick={this.onYesButton.bind(this)}
                             positive
                             labelPosition='right'
                             icon='checkmark'
@@ -370,6 +375,7 @@ export default class TwoList extends Component {
                         <div style={{ overflow: 'auto', display: 'flex' }}>
                             {
                                 _.map(this.state.list, (value, key) => {
+                                    console.log('key',key)
                                     return this.renderColumn(value, key)
                                 })
                             }
