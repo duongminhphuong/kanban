@@ -9,10 +9,9 @@ class CardForm extends React.Component {
       editMode: false,
       header: this.props.header || [],
       desc: this.props.desc || "Untitled",
-      addToCol: this.props.addToCol,
+      // addToCol: this.props.addToCol,
     };
   }
-
   render() {
     return (
       <Modal open={this.props.editMode}>
@@ -26,12 +25,12 @@ class CardForm extends React.Component {
           </Form>
         </Modal.Content>
         <Modal.Actions>
-          <Button basic color='red' inverted>
+          <Button basic color='red' inverted onClick={this.onModalNoButton.bind(this)}>
             <Icon name='remove' /> Cancel
           </Button>
-          <Button color='green' inverted onClick={this.state.addToCol}>
+          {/* <Button color='green' inverted onClick={this.state.addToCol}>
             <Icon name='checkmark' /> Submit
-          </Button>
+          </Button> */}
         </Modal.Actions>
       </Modal>
     );
